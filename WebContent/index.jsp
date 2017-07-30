@@ -8,19 +8,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Kho dữ liệu câu hỏi</title>
 </head>
-<body>
 
-<%
-ExamDB exam = new ExamDB();
-OnlineTest test = new OnlineTest(1);
-for(Question q:test.questions)
-{
-	out.print(q.Value);
-	for(Answer a:q.Answers())
-	{
-		out.print(a.Value);
-	}
-}
-%>
-</body>
+   <body>
+      <h3>Upload Đề:</h3>
+      Chọn Đề thi cần tải: <br />
+      <form action = "UploadFile.jsp" method = "post"
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file" size = "50" />
+         <br />
+         <input type = "submit" value = "Upload File" />
+      </form>
+   </body>
 </html>

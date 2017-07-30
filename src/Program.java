@@ -33,14 +33,14 @@ public class Program {
 				{
 					question.isStatic = false;
 				}
-				question.Value = pr.TextContent;
+				question.Value = pr.standardized();
 				question.insert();
 				tempQuestionID = question.ID;
 			}
 			else
 			{
 				answer.Question_ID = tempQuestionID;
-				answer.Value = pr.TextContent;
+				answer.Value = pr.standardized();
 				if(pr.Color!="")
 				{
 					answer.isCorrect = true;
