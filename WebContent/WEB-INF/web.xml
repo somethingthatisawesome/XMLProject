@@ -16,4 +16,11 @@
       D:\XMLProject\FileUploads\
    </param-value> 
 </context-param>
+<context-param> 
+   <description>Location to create XML files</description> 
+   <param-name>xml-location</param-name> 
+   <param-value>
+      D:\XMLProject\ExamXML\xml.xml
+   </param-value>
+  </context-param>
 </web-app>

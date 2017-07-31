@@ -1,6 +1,6 @@
 <%@page import="ExamXML.ExamXMLHandler"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,13 +9,15 @@
 </head>
 <body>
 <%
+ServletContext context = pageContext.getServletContext();
+String filePath = context.getInitParameter("xml-location");
 String tempRe = request.getParameter("examID");
 if(tempRe!=null)
 {
 int examID = Integer.parseInt(tempRe);
 out.print(examID);
 ExamXMLHandler exHandler = new ExamXMLHandler();
-exHandler.exportExamXML(examID);
+exHandler.exportExamXML(examID,filePath);
 }
 else
 {

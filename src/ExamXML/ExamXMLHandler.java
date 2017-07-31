@@ -1,6 +1,9 @@
 package ExamXML;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -14,11 +17,15 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import examDatabase.Answer;
 import examDatabase.Exam;
 import examDatabase.ExamDB;
 import examDatabase.Question;
+import examManage.Paragraph;
 
 public class ExamXMLHandler {
 	ExamDB examDB;
@@ -26,7 +33,7 @@ public class ExamXMLHandler {
 	{
 		examDB= new ExamDB();
 	}
-	public String exportExamXML(int ID)
+	public String exportExamXML(int ID,String location)
 	{
 		try {
 			
@@ -69,7 +76,7 @@ public class ExamXMLHandler {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("D:\\XMLProject\\file.xml"));
+			StreamResult result = new StreamResult(new File(location));
 
 			// Output to console for testing
 			// StreamResult result = new StreamResult(System.out);
@@ -83,5 +90,50 @@ public class ExamXMLHandler {
 			tfe.printStackTrace();
 		  }
 		return "";
+	}
+	public List<Paragraph> importExamXML(String location)
+	{
+		List<Paragraph> paragraphs = new ArrayList<Paragraph>();
+		File fXmlFile = new File(location);
+		DocumentBuilderFactory factory =
+		DocumentBuilderFactory.newInstance();
+		try {
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(fXmlFile);
+			NodeList nodes = doc.getElementsByTagName("Question");
+			NodeList anodes=null;
+			int len = nodes.getLength();
+			for(int i=0;i<len;i++)
+			{
+				Element node =(Element) nodes.item(i);
+				Paragraph pr = new Paragraph();
+				pr.isQuestion = true;
+				pr.TextContent = node.getFirstChild().getTextContent();
+				pr.ID = node.getAttributes().getNamedItem("ID").getTextContent();
+				paragraphs.add(pr);
+				anodes = node.getElementsByTagName("Answer");
+				
+				int alen = anodes.getLength();
+				for(int j=0;j<alen;j++)
+				{
+					Node anode = anodes.item(j);
+					Paragraph apr = new Paragraph();
+					apr.isQuestion = false;
+					apr.TextContent = anode.getTextContent();
+					apr.ID = anode.getAttributes().getNamedItem("ID").getTextContent();
+					paragraphs.add(apr);
+				}
+			}
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return paragraphs;
 	}
 }

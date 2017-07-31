@@ -5,6 +5,7 @@ public class Paragraph {
 	public String Numbering="";
 	public String Color="";
 	public boolean isQuestion=false;
+	public String ID="";
 	public String standardized()
 	{
 		String string = new String(this.TextContent);
