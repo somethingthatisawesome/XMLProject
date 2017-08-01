@@ -1,16 +1,15 @@
 package userPakage;
+import java.util.ArrayList;
 import java.util.List;
-
-import examDatabase.*;
+import jdk.nashorn.internal.runtime.QuotedStringTokenizer;
 public class OnlineTest {
-	int TestID;
 	public List<Question> questions;
 	public OnlineTest()
 	{
-		
+		this.questions = new ArrayList<Question>();
 	}
-	public OnlineTest(int Exam_ID)
+	public List<Question> getQUESTIONS()
 	{
-		this.questions = new Exam(Exam_ID).Questions();
+		return this.questions;
 	}
 }

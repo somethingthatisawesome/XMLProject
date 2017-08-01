@@ -46,10 +46,34 @@ public class Exam implements SQLAction {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	public List<Exam> getALL()
+	{
+		List<Exam> exs= new ArrayList<Exam>();
+		String query ="SELECT * FROM Exam;";
+		System.out.println(query);
+		ResultSet rs = ExamDB.find(query);
+		
+		try {
+			while(rs.next())
+			{
+			Exam ex = new Exam();
+			
+			ex.ID = rs.getInt("ID");
+			ex.Title = rs.getString("Title");
+			System.out.println(ex.ID);
+			exs.add(ex);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return exs;
+	}
 	@Override
 	public boolean findByID(int ID) {
 		// TODO Auto-generated method stub
-				String query ="SELECT * FROM Exam WHERE ID="+ID+";";
+				String query;
+				query ="SELECT * FROM Exam WHERE ID="+ID+";";
 				System.out.println(query);
 				ResultSet rs = ExamDB.find(query);
 				
@@ -96,5 +120,13 @@ public class Exam implements SQLAction {
 			e.printStackTrace();
 		}
 		return questions;
+	}
+	public String getTITLE()
+	{
+		return this.Title;
+	}
+	public String getID()
+	{
+		return String.valueOf(this.ID);
 	}
 }

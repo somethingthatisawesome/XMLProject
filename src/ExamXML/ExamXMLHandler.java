@@ -26,6 +26,7 @@ import examDatabase.Exam;
 import examDatabase.ExamDB;
 import examDatabase.Question;
 import examManage.Paragraph;
+import userPakage.OnlineTest;
 
 public class ExamXMLHandler {
 	ExamDB examDB;
@@ -91,9 +92,9 @@ public class ExamXMLHandler {
 		  }
 		return "";
 	}
-	public List<Paragraph> importExamXML(String location)
+	public OnlineTest importExamXML(int ExamID,String location)
 	{
-		List<Paragraph> paragraphs = new ArrayList<Paragraph>();
+		OnlineTest ol = new OnlineTest();
 		File fXmlFile = new File(location);
 		DocumentBuilderFactory factory =
 		DocumentBuilderFactory.newInstance();
@@ -106,13 +107,12 @@ public class ExamXMLHandler {
 			for(int i=0;i<len;i++)
 			{
 				Element node =(Element) nodes.item(i);
+				userPakage.Question q = new userPakage.Question();
 				Paragraph pr = new Paragraph();
-				pr.isQuestion = true;
 				pr.TextContent = node.getFirstChild().getTextContent();
 				pr.ID = node.getAttributes().getNamedItem("ID").getTextContent();
-				paragraphs.add(pr);
 				anodes = node.getElementsByTagName("Answer");
-				
+				q.pr = pr;
 				int alen = anodes.getLength();
 				for(int j=0;j<alen;j++)
 				{
@@ -121,8 +121,11 @@ public class ExamXMLHandler {
 					apr.isQuestion = false;
 					apr.TextContent = anode.getTextContent();
 					apr.ID = anode.getAttributes().getNamedItem("ID").getTextContent();
-					paragraphs.add(apr);
+					userPakage.Answer a = new userPakage.Answer();
+					a.pr = apr;
+					q.answer.add(a);
 				}
+				ol.questions.add(q);
 			}
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
@@ -134,6 +137,6 @@ public class ExamXMLHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return paragraphs;
+		return ol;
 	}
 }

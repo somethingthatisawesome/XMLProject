@@ -16,4 +16,13 @@ public class Paragraph {
 		string = string.replaceAll(">", "&gt;");
 		return string;
 	}
+	public String getID()
+	{
+		return this.ID;
+	}
+	public String getTEXT()
+	{
+		return this.TextContent;
+	}
+
 }
