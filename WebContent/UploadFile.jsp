@@ -14,7 +14,7 @@ request.setCharacterEncoding("UTF-8");
    int maxMemSize = 5000 * 1024;
    ServletContext context = pageContext.getServletContext();
    String filePath = context.getInitParameter("file-upload");
-
+	String time="";
    // Verify the content type
    String contentType = request.getContentType();
    String examName = "";
@@ -62,12 +62,20 @@ request.setCharacterEncoding("UTF-8");
             }
             else
             {
+            	if(fi.getFieldName().equals("title"))
+            	{
             	examName = fi.getString();
-            	System.out.println(examName);
+            	
+            	System.out.println(examName);}
+            	if(fi.getFieldName().equals("time"))
+            	{
+            	time = fi.getString();
+            	
+            	System.out.println(examName);}
             }
             
          }
-         response.sendRedirect("ExamDB.jsp?file="+filepath+"&title="+examName);
+         response.sendRedirect("ExamDB.jsp?file="+filepath+"&title="+examName+"&time="+time);
          return;
       } catch(Exception ex) {
          System.out.println(ex);

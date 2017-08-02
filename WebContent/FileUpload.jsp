@@ -27,6 +27,10 @@ if(session.getAttribute("User")==null)
          <input class="form-control" type = "text" name = "title" size = "50" required/>
          </div>
          <div class="form-group">
+         <label>Thời lượng</label>
+         <input class="form-control"  type = "number" name = "time" size = "50" required/>
+         </div>
+         <div class="form-group">
          <label>File cần tải</label>
          <input class="form-control" type = "file" name = "file" size = "50" required/>
          </div>

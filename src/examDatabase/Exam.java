@@ -18,8 +18,10 @@ public class Exam implements SQLAction {
 	{
 		
 	}
-	public Exam(String Title) {
+	public Exam(String Title,int time,int user_id) {
 		this.Title = Title;
+		this.Time = time;
+		this.User_ID = user_id;
 	}
 	public Exam(int ID)
 	{
@@ -28,8 +30,8 @@ public class Exam implements SQLAction {
 	}
 	@Override
 	public boolean insert() {
-		String query =  MessageFormat.format("INSERT INTO Exam(Title) VALUES(N\"{0}\");"
-				,this.Title).replaceAll("\"", "\'");
+		String query =  MessageFormat.format("INSERT INTO Exam(Title,Time,User_ID) VALUES(N\"{0}\",\"{1}\",\"{2}\");"
+				,this.Title,this.Time,this.User_ID).replaceAll("\"", "\'");
 		System.out.println(query);
 		int ID = ExamDB.insert(query);
 		if(ID!=-1)

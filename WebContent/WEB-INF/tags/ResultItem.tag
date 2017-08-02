@@ -10,5 +10,5 @@
  	<td><jsp:invoke fragment="time"/> phút</td>
  	<td><jsp:invoke fragment="date"/></td>
  	<td><jsp:invoke fragment="mark"/></td>
- 	<td><a href='Exam.jsp?examID=<jsp:invoke fragment="ID"/>'>Xem chi tiết</a></td>
+ 	<td><a href='Result.jsp?ID=<jsp:invoke fragment="ID"/>'>Xem chi tiết</a></td>
  </tr>

@@ -1,7 +1,11 @@
 package userPakage;
 
 import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import ExamXML.ExamXMLHandler;
 import examManage.Paragraph;
@@ -28,6 +32,19 @@ public boolean Login(String username,String password)
 	 return true;
 	 }
 	 return false;
+}
+public String md5()
+{
+	String hex="";
+	try {
+		MessageDigest md5 = MessageDigest.getInstance("MD5");
+		hex = (new HexBinaryAdapter()).marshal(md5.digest((String.valueOf(System.currentTimeMillis())).getBytes()));
+		System.out.println(hex);
+	} catch (NoSuchAlgorithmException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return hex;
 }
 public void createExam(int ID,String location)
 {
