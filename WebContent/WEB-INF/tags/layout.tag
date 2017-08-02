@@ -54,11 +54,18 @@
                     </a>
                 </li>
                 <li>
+                    <a href="Result.jsp">
+                        <i class="pe-7s-ribbon"></i>
+                        <p>Kết quả kiểm tra</p>
+                    </a>
+                </li>
+                <li>
                     <a href="FileUpload.jsp">
                         <i class="pe-7s-upload"></i>
                         <p>Upload Đề Thi</p>
                     </a>
                 </li>
+                
             </ul>
     	</div>
     </div>

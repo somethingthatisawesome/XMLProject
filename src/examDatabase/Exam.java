@@ -4,12 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Exam implements SQLAction {
 
 	public int ID;
 	public String Title;
+	public int Time;
+	public String Date;
+	public int User_ID;
 	public Exam()
 	{
 		
@@ -57,9 +61,11 @@ public class Exam implements SQLAction {
 			while(rs.next())
 			{
 			Exam ex = new Exam();
-			
 			ex.ID = rs.getInt("ID");
 			ex.Title = rs.getString("Title");
+			ex.User_ID = rs.getInt("User_ID");
+			ex.Time = rs.getInt("Time");
+			ex.Date = rs.getString("Date");
 			System.out.println(ex.ID);
 			exs.add(ex);
 			}
@@ -82,6 +88,9 @@ public class Exam implements SQLAction {
 					{
 					this.ID = rs.getInt("ID");
 					this.Title = rs.getString("Title");
+					this.User_ID = rs.getInt("User_ID");
+					this.Time = rs.getInt("Time");
+					this.Date = rs.getString("Date");
 					return true;
 					}
 					else
@@ -128,5 +137,17 @@ public class Exam implements SQLAction {
 	public String getID()
 	{
 		return String.valueOf(this.ID);
+	}
+	public String getDATE()
+	{
+		return this.Date;
+	}
+	public int getTIME()
+	{
+		return this.Time;
+	}
+	public int getUSERID()
+	{
+		return this.User_ID;
 	}
 }

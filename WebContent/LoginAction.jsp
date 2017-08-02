@@ -19,7 +19,7 @@ if(user.Login(username, password)==true)
 	
 	User a = (User) session.getAttribute("User");
 	
-	response.sendRedirect("index.jsp");
+	response.sendRedirect(session.getAttribute("UrlDirect").toString());
 }
 else
 {

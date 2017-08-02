@@ -13,10 +13,16 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -33,6 +39,105 @@ public class ExamXMLHandler {
 	public ExamXMLHandler()
 	{
 		examDB= new ExamDB();
+	}
+	public double getScore(String location)
+	{
+		double score = 1;
+		int len = 0;
+		int correct=0;
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder;
+		Document doc;
+		try {
+			docBuilder = docFactory.newDocumentBuilder();
+			 doc = docBuilder.parse(location);
+			 Element exam =(Element) doc.getFirstChild();
+			 NodeList questions = exam.getElementsByTagName("Question");
+			 len = questions.getLength();
+			 for(int i=0;i<len;i++)
+			 {
+				 Element q = (Element)questions.item(i);
+				 NodeList answers = q.getElementsByTagName("Answer");
+				 int alen = answers.getLength();
+				 int count=1;
+				 for(int j=0;j<alen;j++)
+				 {
+					 Node a = answers.item(j);
+					 NamedNodeMap att = a.getAttributes();
+					 String isCorrect = att.getNamedItem("isCorrect").getNodeValue();
+					 String isChoose = att.getNamedItem("Choose").getNodeValue();
+					 System.out.println(isChoose+" "+isCorrect);
+					 if(!(isCorrect.equals(isChoose)))
+					 {
+						count=0; 
+					 }
+				 }
+				 correct+=count;
+			 }
+			System.out.println("Done");
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		System.out.println(len+" "+correct);
+		score = (double) correct/len;
+		return score;
+	}
+	public void exportResult(String location,String[] Answers)
+	{
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder;
+		Document doc;
+		try {
+			docBuilder = docFactory.newDocumentBuilder();
+			 doc = docBuilder.parse(location);
+			 Element exam =(Element) doc.getFirstChild();
+			 XPathFactory xPathfactory = XPathFactory.newInstance();
+			 XPath xpath = xPathfactory.newXPath();
+			 NodeList answers = exam.getElementsByTagName("Answer");
+			 int alen = answers.getLength();
+			 for(int i=0;i<alen;i++)
+			 {
+				 Element a =(Element) answers.item(i);
+				 a.setAttribute("Choose", "false");
+			 }
+			 for(String st:Answers)
+			 {
+			 XPathExpression expr = xpath.compile("/Exam/Question/Answer[@ID='"+st+"']");
+			 NodeList nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+			 Element n =(Element) nl.item(0);
+			 n.setAttribute("Choose", "true");
+			 }
+		 	TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File(location));
+			transformer.transform(source, result);
+			
+			System.out.println("Done");
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	public String exportExamXML(int ID,String location)
 	{

@@ -18,6 +18,9 @@ request.setAttribute("ExamLib", ex);
 	<t:libItem>
 	<jsp:attribute name="ID">${ex.ID}</jsp:attribute>
 	<jsp:attribute name="title">${ex.TITLE}</jsp:attribute>
+	<jsp:attribute name="time">${ex.TIME}</jsp:attribute>
+	<jsp:attribute name="date">${ex.DATE}</jsp:attribute>
+	<jsp:attribute name="own">${ex.USERID}</jsp:attribute>
 	</t:libItem>
 </c:forEach>
 </jsp:attribute>

@@ -8,6 +8,7 @@
 <%@ page import = "org.apache.commons.io.output.*" %>
 
 <%
+request.setCharacterEncoding("UTF-8");
    File file ;
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
@@ -16,7 +17,8 @@
 
    // Verify the content type
    String contentType = request.getContentType();
-   
+   String examName = "";
+   String filepath="";
    if ((contentType.indexOf("multipart/form-data") >= 0)) {
       DiskFileItemFactory factory = new DiskFileItemFactory();
       // maximum size that will be stored in memory
@@ -30,19 +32,13 @@
       
       // maximum file size to be uploaded.
       upload.setSizeMax( maxFileSize );
-      
+
       try { 
          // Parse the request to get file items.
          List fileItems = upload.parseRequest(request);
 
          // Process the uploaded file items
          Iterator i = fileItems.iterator();
-
-         out.println("<html>");
-         out.println("<head>");
-         out.println("<title>JSP File upload</title>");  
-         out.println("</head>");
-         out.println("<body>");
          
          while ( i.hasNext () ) {
             FileItem fi = (FileItem)i.next();
@@ -62,23 +58,21 @@
                   fileName.substring(fileName.lastIndexOf("\\")+1)) ;
                }
                fi.write( file ) ;
-               out.println("Uploaded Filename: " + filePath + 
-               fileName.substring(fileName.lastIndexOf("\\")+1) + "<br>");
+               filepath = fileName.substring(fileName.lastIndexOf("\\")+1);
             }
+            else
+            {
+            	examName = fi.getString();
+            	System.out.println(examName);
+            }
+            
          }
-         out.println("</body>");
-         out.println("</html>");
+         response.sendRedirect("ExamDB.jsp?file="+filepath+"&title="+examName);
+         return;
       } catch(Exception ex) {
          System.out.println(ex);
       }
    } else {
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<title>Servlet upload</title>");  
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<p>No file uploaded</p>"); 
-      out.println("</body>");
-      out.println("</html>");
+	   out.println("null");
    }
 %>
