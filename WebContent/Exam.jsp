@@ -26,36 +26,6 @@ ExamXMLHandler exHandler = new ExamXMLHandler();
 int examID = Integer.parseInt(tempRe);
 OnlineTest prs = user.takeExam(examID,filePath);
 request.setAttribute("OnlineTest", prs);
-/*
-String QID="";
-boolean firstQuestion=true;
-boolean end=false;
-int i=0;
-
-for(Paragraph pr:prs)
-{
-	
-	if(pr.isQuestion)
-	{
-		i++;
-		if(firstQuestion)
-		{
-			firstQuestion=false;
-			
-		}
-		else
-		{
-		}
-	QID=pr.ID;
-	out.print(pr.TextContent);
-	}
-	else
-	{
-		out.print(pr.TextContent);
-	}
-}
-}
-*/
 }
 else
 {

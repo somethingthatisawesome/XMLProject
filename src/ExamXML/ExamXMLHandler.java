@@ -107,6 +107,7 @@ public class ExamXMLHandler {
 				 Element a =(Element) answers.item(i);
 				 a.setAttribute("Choose", "false");
 			 }
+			 if(Answers!=null)
 			 for(String st:Answers)
 			 {
 			 XPathExpression expr = xpath.compile("/Exam/Question/Answer[@ID='"+st+"']");
@@ -142,7 +143,6 @@ public class ExamXMLHandler {
 	public String exportExamXML(int ID,String location)
 	{
 		try {
-			
 			Exam exam = new Exam(ID);
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();

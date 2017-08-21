@@ -9,8 +9,6 @@
 String[] checkedIds = request.getParameterValues("answers");
 int testID = Integer.valueOf(session.getAttribute("TestID").toString());
 User user = (User)session.getAttribute("User");
-if(checkedIds!=null)
-{
 	String file = user.md5();
 	String sourceFile = "D:\\XMLProject\\ExamXML\\"+user.username+"_"+testID+".xml";
 	String desFile = "D:\\XMLProject\\UserResultXML\\"+file+".xml";
@@ -22,5 +20,4 @@ if(checkedIds!=null)
 	Test test=  new Test(testID,user.ID,file,exh.getScore(desFile));
 	test.insert();
 	response.sendRedirect("Result.jsp?test="+file);
-}
 %>

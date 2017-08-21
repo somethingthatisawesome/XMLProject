@@ -46,6 +46,19 @@ public String md5()
 	}
 	return hex;
 }
+public String md5(String st)
+{
+	String hex="";
+	try {
+		MessageDigest md5 = MessageDigest.getInstance("MD5");
+		hex = (new HexBinaryAdapter()).marshal(md5.digest((st).getBytes()));
+		System.out.println(hex);
+	} catch (NoSuchAlgorithmException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return hex;
+}
 public void createExam(int ID,String location)
 {
 	xmlhandler.exportExamXML(ID, location);
@@ -70,11 +83,11 @@ public int getID()
 {
 	return this.ID;
 }
-public String getUsername()
+public String getUSERNAME()
 {
 	return this.username;
 }
-public String getName()
+public String getNAME()
 {
 	return this.name;
 }

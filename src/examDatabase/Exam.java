@@ -2,10 +2,15 @@ package examDatabase;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import userPakage.UserController;
 
 public class Exam implements SQLAction {
 
@@ -16,11 +21,9 @@ public class Exam implements SQLAction {
 	public int User_ID;
 	public Exam()
 	{
-		
 	}
-	public Exam(String Title,int time,int user_id) {
+	public Exam(String Title,int user_id) {
 		this.Title = Title;
-		this.Time = time;
 		this.User_ID = user_id;
 	}
 	public Exam(int ID)
@@ -56,6 +59,31 @@ public class Exam implements SQLAction {
 	{
 		List<Exam> exs= new ArrayList<Exam>();
 		String query ="SELECT * FROM Exam;";
+		System.out.println(query);
+		ResultSet rs = ExamDB.find(query);
+		
+		try {
+			while(rs.next())
+			{
+			Exam ex = new Exam();
+			ex.ID = rs.getInt("ID");
+			ex.Title = rs.getString("Title");
+			ex.User_ID = rs.getInt("User_ID");
+			ex.Time = rs.getInt("Time");
+			ex.Date = rs.getString("Date");
+			System.out.println(ex.ID);
+			exs.add(ex);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return exs;
+	}
+	public List<Exam> findByName(String s)
+	{
+		List<Exam> exs= new ArrayList<Exam>();
+		String query ="SELECT * FROM Exam WHERE Title LIKE '%"+s+"%';";
 		System.out.println(query);
 		ResultSet rs = ExamDB.find(query);
 		
@@ -140,16 +168,19 @@ public class Exam implements SQLAction {
 	{
 		return String.valueOf(this.ID);
 	}
-	public String getDATE()
+	public String getDATE() throws ParseException
 	{
+		
 		return this.Date;
 	}
-	public int getTIME()
+	public int getQNUMB()
 	{
-		return this.Time;
+		
+		return Questions().size();
 	}
-	public int getUSERID()
+	public String getUSERNAME()
 	{
-		return this.User_ID;
+		UserController userc = new UserController();	
+		return userc.findUserbyID(this.User_ID).getNAME();
 	}
 }

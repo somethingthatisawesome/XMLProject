@@ -7,8 +7,9 @@
  <tr>
  	<td><jsp:invoke fragment="ID"/></td>
  	<td><jsp:invoke fragment="title"/></td>
- 	<td><jsp:invoke fragment="time"/> phút</td>
+ 	<td><jsp:invoke fragment="time"/> câu</td>
  	<td><jsp:invoke fragment="date"/></td>
  	<td><jsp:invoke fragment="own"/></td>
  	<td><a href='Exam.jsp?examID=<jsp:invoke fragment="ID"/>'>Kiểm tra</a></td>
+ 	<td><a href='getXML.jsp?examID=<jsp:invoke fragment="ID"/>'>Tải về</a></td>
  </tr>

@@ -53,7 +53,7 @@ public User findUserbyUserName(String username)
 }
 public User findUserbyID(int ID)
 {
-	String query ="SELECT * FROM User WHERE ID="+ID+";";
+	String query ="SELECT * FROM Users WHERE ID="+ID+";";
 	System.out.println(query);
 	ResultSet rs = ExamDB.find(query);
 	User user = new User();

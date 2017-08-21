@@ -20,7 +20,7 @@
    <description>Location to create XML files</description> 
    <param-name>xml-location</param-name> 
    <param-value>
-      D:\XMLProject\ExamXML
+      D:\XMLProject\ExamXML\
    </param-value>
   </context-param>
 </web-app>

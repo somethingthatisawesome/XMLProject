@@ -6,10 +6,12 @@
 <%@ page import = "org.apache.commons.fileupload.disk.*" %>
 <%@ page import = "org.apache.commons.fileupload.servlet.*" %>
 <%@ page import = "org.apache.commons.io.output.*" %>
-
+<%@ page import = "userPakage.User" %>
 <%
+User user = new User();
 request.setCharacterEncoding("UTF-8");
    File file ;
+   String md5="";
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
    ServletContext context = pageContext.getServletContext();
@@ -18,6 +20,7 @@ request.setCharacterEncoding("UTF-8");
    // Verify the content type
    String contentType = request.getContentType();
    String examName = "";
+   String id = "";
    String filepath="";
    if ((contentType.indexOf("multipart/form-data") >= 0)) {
       DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -48,14 +51,15 @@ request.setCharacterEncoding("UTF-8");
                String fileName = fi.getName();
                boolean isInMemory = fi.isInMemory();
                long sizeInBytes = fi.getSize();
-            
+            	//get MD5
+            	md5 = user.md5();
                // Write the file
                if( fileName.lastIndexOf("\\") >= 0 ) {
                   file = new File( filePath + 
-                  fileName.substring( fileName.lastIndexOf("\\"))) ;
+                  md5) ;
                } else {
                   file = new File( filePath + 
-                  fileName.substring(fileName.lastIndexOf("\\")+1)) ;
+                  md5) ;
                }
                fi.write( file ) ;
                filepath = fileName.substring(fileName.lastIndexOf("\\")+1);
@@ -67,15 +71,14 @@ request.setCharacterEncoding("UTF-8");
             	examName = fi.getString();
             	
             	System.out.println(examName);}
-            	if(fi.getFieldName().equals("time"))
+            	if(fi.getFieldName().equals("id"))
             	{
-            	time = fi.getString();
-            	
-            	System.out.println(examName);}
+            	id = fi.getString();
+            	}
             }
             
          }
-         response.sendRedirect("ExamDB.jsp?file="+filepath+"&title="+examName+"&time="+time);
+         response.sendRedirect("ExamDB.jsp?file="+md5+"&title="+examName+"&id="+id);
          return;
       } catch(Exception ex) {
          System.out.println(ex);
