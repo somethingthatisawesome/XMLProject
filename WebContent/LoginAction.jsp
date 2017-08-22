@@ -18,8 +18,11 @@ if(user.Login(username, password)==true)
 	session.setAttribute("User", user);
 	
 	User a = (User) session.getAttribute("User");
-	
+	if(session.getAttribute("UrlDirect")!=null)
 	response.sendRedirect(session.getAttribute("UrlDirect").toString());
+	else
+	response.sendRedirect("./index.jsp");
+	return;
 }
 else
 {

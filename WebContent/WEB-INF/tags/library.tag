@@ -15,6 +15,7 @@
                                     	<th>Ngày đăng</th>
                                     	<th>Đăng bởi</th>
                                     	<th></th>
+                                    	<th></th>
                                     </thead>
                                     <tbody>
                                         <jsp:invoke fragment="items"/>
@@ -24,4 +25,16 @@
                             </div>
                         </div>
                     </div>
-
+<script>
+function remove(id)
+{
+var r = confirm("Xóa Môn học này?");
+if(r==true)
+	{
+xhttp.open("GET", "./DeleteExam.jsp?id="+id, true);
+xhttp.send();
+Alert("Đã xóa môn học");
+location.reload();
+	}
+}
+</script>

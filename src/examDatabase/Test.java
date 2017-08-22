@@ -42,10 +42,16 @@ public class Test implements SQLAction {
 		}
 		return false;
 	}
-
+	public boolean removeByExamID(int ID)
+	{
+		String query = "DELETE FROM Test WHERE Exam_ID="+ID+";";
+		ExamDB.remove(query);
+		return false;
+	}
 	@Override
 	public boolean remove() {
 		// TODO Auto-generated method stub
+		
 		return false;
 	}
 

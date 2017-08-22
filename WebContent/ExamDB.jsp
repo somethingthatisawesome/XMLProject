@@ -18,7 +18,7 @@ Question question = new Question();
 Answer answer = new Answer();
 Exam exam;
 int Exam_ID;
-if(examID==null)
+if(examID=="")
 {
 exam = new Exam(examTitle,user.ID);
 exam.insert();

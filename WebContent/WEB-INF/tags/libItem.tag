@@ -10,6 +10,7 @@
  	<td><jsp:invoke fragment="time"/> câu</td>
  	<td><jsp:invoke fragment="date"/></td>
  	<td><jsp:invoke fragment="own"/></td>
- 	<td><a href='Exam.jsp?examID=<jsp:invoke fragment="ID"/>'>Kiểm tra</a></td>
+
  	<td><a href='getXML.jsp?examID=<jsp:invoke fragment="ID"/>'>Tải về</a></td>
+ 	 	<td><a href='DeleteExam.jsp?id=<jsp:invoke fragment="ID"/>' onclick='remove(<jsp:invoke fragment="ID"/>);'>Xóa</a></td>
  </tr>

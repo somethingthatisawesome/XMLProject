@@ -52,7 +52,7 @@ if(session.getAttribute("User")==null)
     	    $scope.search = function(){
     	        someService.search($scope.keywords).then(function(response){
     	            $scope.response = response.data;
-    	            $scope.examID = "";
+    	            delete $scope.examID;
     	        });
     	    };
 			$scope.setExamID = function(id,title)

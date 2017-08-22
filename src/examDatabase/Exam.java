@@ -47,6 +47,12 @@ public class Exam implements SQLAction {
 	@Override
 	public boolean remove() {
 		String query = "DELETE FROM Exam WHERE ID="+this.ID+";";
+		for(Question q:Questions())
+		{
+			q.remove();
+		}
+		Test test = new Test();
+		test.removeByExamID(this.ID);
 		ExamDB.remove(query);
 		return false;
 	}
@@ -136,6 +142,29 @@ public class Exam implements SQLAction {
 	public List<Question> Questions()
 	{
 		return getQuestionByExamID(this.ID);
+	}
+	public List<Question> getRandomizedExam(int number)
+	{
+		List<Question> questions = new ArrayList<Question>();
+		String query ="SELECT TOP "+number+" * FROM Question WHERE Exam_ID="+this.ID+" ORDER BY NEWID();";
+		System.out.println(query);
+		ResultSet rs = ExamDB.find(query);
+		
+		try {
+			while(rs.next())
+			{
+			Question question = new Question();
+			question.ID = rs.getInt("ID");
+			question.isStatic = rs.getBoolean("isStatic");
+			question.Value = rs.getString("Value");
+			question.Exam_ID = rs.getInt("Exam_ID");
+			questions.add(question);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return questions;
 	}
 	public List<Question> getQuestionByExamID(int exam_ID)
 	{

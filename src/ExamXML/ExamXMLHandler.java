@@ -3,6 +3,7 @@ package ExamXML;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -140,7 +141,7 @@ public class ExamXMLHandler {
 		}
 
 	}
-	public String exportExamXML(int ID,String location)
+	public String exportExamXML(int ID,String location,int number)
 	{
 		try {
 			Exam exam = new Exam(ID);
@@ -152,7 +153,16 @@ public class ExamXMLHandler {
 			Element rootElement = doc.createElement("Exam");
 			rootElement.appendChild(doc.createTextNode(exam.Title));
 			doc.appendChild(rootElement);
-			for(Question q:exam.Questions())
+			List<Question> qList;
+			if(number==-1)
+			{
+			qList= exam.Questions();
+			}
+			else
+			{
+			qList= exam.getRandomizedExam(number);
+			}
+			for(Question q:qList)
 			{
 			Element question = doc.createElement("Question");
 			rootElement.appendChild(question);

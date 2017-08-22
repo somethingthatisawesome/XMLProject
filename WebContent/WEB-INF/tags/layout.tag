@@ -62,18 +62,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="Result.jsp">
-                        <i class="pe-7s-ribbon"></i>
-                        <p>Kết quả kiểm tra</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="getXML.jsp">
-                        <i class="pe-7s-ribbon"></i>
-                        <p>Tải đề thi</p>
-                    </a>
-                </li>
-                <li>
                     <a href="FileUpload.jsp">
                         <i class="pe-7s-upload"></i>
                         <p>Upload Đề Thi</p>
@@ -103,7 +91,15 @@
 
                     <ul class="nav navbar-nav navbar-right">
                     <%if(session.getAttribute("User")==null){ %>
+                        
                         <li>
+                          
+                           <a href="Register.jsp">
+                               Đăng Ký
+                            </a>
+                        </li>
+                        <li>
+                          
                            <a href="Login.jsp">
                                Đăng nhập
                             </a>

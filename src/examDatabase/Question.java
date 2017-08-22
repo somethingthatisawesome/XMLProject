@@ -29,6 +29,10 @@ public class Question implements SQLAction {
 	public boolean remove() {
 		// TODO Auto-generated method stub
 		String query = "DELETE FROM Question WHERE ID="+this.ID+";";
+		for(Answer a:Answers())
+		{
+			a.remove();
+		}
 		ExamDB.remove(query);
 		return false;
 	}

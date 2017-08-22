@@ -61,7 +61,7 @@ public String md5(String st)
 }
 public void createExam(int ID,String location)
 {
-	xmlhandler.exportExamXML(ID, location);
+	xmlhandler.exportExamXML(ID, location,-1);
 }
 public  OnlineTest takeExam(int ID,String location)
 {

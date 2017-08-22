@@ -12,9 +12,10 @@ String exam = request.getParameter("ename");
 String id = request.getParameter("id");
 String number = request.getParameter("number");
 
-if(id!=null)
+if(id!=null&&number!=null)
 {
 int ID = Integer.valueOf(id);
+int NUMBER = Integer.valueOf(number);
 Exam ex = new Exam(ID);
 response.setContentType("application/octet-stream;charset=utf-8");
 response.setCharacterEncoding("UTF-8");
@@ -24,7 +25,7 @@ String fileName = user.md5();
 ServletContext context = pageContext.getServletContext();
 String location = context.getInitParameter("xml-locationd")+fileName;
 ExamXMLHandler exh  = new ExamXMLHandler();
-exh.exportExamXML(ID, location);
+exh.exportExamXML(ID, location,NUMBER);
 ////out put file to web browser
 File file = new File(location);
 FileInputStream fileIn = new FileInputStream(file);
